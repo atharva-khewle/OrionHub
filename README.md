@@ -2,9 +2,7 @@
 
 OrionHub is an innovative social platform inspired by Reddit, designed to connect and engage users in discussions and content sharing. This project is built using Kotlin and Firebase, emphasizing a seamless and interactive user experience.
 
-## Core Features
-
-OrionHub is under active development, with the following key features being crafted:
+## Core Features (under active development)
 
 - **Subreddits:** Customizable community spaces, akin to Reddit's subreddits, for focused discussions and content sharing.
 - **Posts:** Users can create posts in various formats - text, photo, or video, allowing for diverse and engaging content.
