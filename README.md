@@ -13,5 +13,5 @@ OrionHub is an innovative social platform inspired by Reddit, designed to connec
 
 ## Development Status
 
-Currently, OrionHub is in the development phase. We are dedicated to creating a dynamic and user-friendly platform. Keep an eye on this repository for updates and advancements in the project!
+Currently, OrionHub is in the development phase. I am dedicated to creating a dynamic and user-friendly platform. Keep an eye on this repository for updates and advancements in the project!
 
