@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+<!--    <color name="selector">@drawable/nav_item_color_selected</color>-->
+<!--    <color name="nav_item_clr_selector">-->
+        <style name="nav_item_clr_selector" xmlns:android="http://schemas.android.com/apk/res/android">
+<!--            <item name="itemIconTint" android:state_checked="true">#FFFFFF</item>-->
+<!--            <item name="itemTextColor" android:state_checked="false">#828282</item>-->
+            <item name="itemIconTint" android:state_checked="true">#4CAF50</item>
+            <item name="itemTextColor" android:state_checked="false">#E8FF00</item>
+        </style>
+<!--    </color>-->
+
+
+</resources>

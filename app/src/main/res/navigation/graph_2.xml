@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph_2"
+    app:startDestination="@id/home2">
+
+    <fragment
+        android:id="@+id/home2"
+        android:name="com.example.orionhub.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home2_to_chat"
+            app:destination="@id/chat" />
+        <action
+            android:id="@+id/action_home2_to_create"
+            app:destination="@id/create" />
+        <action
+            android:id="@+id/action_home2_to_inbox"
+            app:destination="@id/inbox" />
+        <action
+            android:id="@+id/action_home2_to_communities"
+            app:destination="@id/communities" />
+    </fragment>
+    <fragment
+        android:id="@+id/communities"
+        android:name="com.example.orionhub.Communities"
+        android:label="fragment_communities"
+        tools:layout="@layout/fragment_communities" >
+        <action
+            android:id="@+id/action_communities_to_home2"
+            app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_communities_to_home22"
+            app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_communities_to_chat"
+            app:destination="@id/chat" />
+        <action
+            android:id="@+id/action_communities_to_home23"
+            app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_communities_to_create"
+            app:destination="@id/create" />
+        <action
+            android:id="@+id/action_communities_to_inbox"
+            app:destination="@id/inbox" />
+        <action
+            android:id="@+id/action_communities_to_chat2"
+            app:destination="@id/chat" />
+        <action
+            android:id="@+id/action_communities_to_create2"
+            app:destination="@id/create" />
+        <action
+            android:id="@+id/action_communities_to_home24"
+            app:destination="@id/home2" />
+    </fragment>
+    <fragment
+        android:id="@+id/create"
+        android:name="com.example.orionhub.Create"
+        android:label="fragment_create"
+        tools:layout="@layout/fragment_create" >
+        <action
+            android:id="@+id/action_create_to_home2"
+            app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_create_to_home22"
+            app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_create_to_chat"
+            app:destination="@id/chat" />
+        <action
+            android:id="@+id/action_create_to_inbox"
+            app:destination="@id/inbox" />
+        <action
+            android:id="@+id/action_create_to_communities"
+            app:destination="@id/communities" />
+    </fragment>
+    <fragment
+        android:id="@+id/chat"
+        android:name="com.example.orionhub.Chat"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chat_to_home2"
+            app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_chat_to_communities"
+            app:destination="@id/communities" />
+        <action
+            android:id="@+id/action_chat_to_inbox"
+            app:destination="@id/inbox" />
+        <action
+            android:id="@+id/action_chat_to_create"
+            app:destination="@id/create" />
+    </fragment>
+    <fragment
+        android:id="@+id/inbox"
+        android:name="com.example.orionhub.inbox"
+        android:label="fragment_inbox"
+        tools:layout="@layout/fragment_inbox" >
+        <action
+            android:id="@+id/action_inbox_to_home2"
+            app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_inbox_to_home22"
+            app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_inbox_to_chat"
+            app:destination="@id/chat" />
+        <action
+            android:id="@+id/action_inbox_to_communities"
+            app:destination="@id/communities" />
+        <action
+            android:id="@+id/action_inbox_to_create"
+            app:destination="@id/create" />
+    </fragment>
+</navigation>

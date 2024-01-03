@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BottomNavigationViewStyle" parent="Widget.Design.BottomNavigationView">
+        <item name="android:textSize">10sp</item> <!-- Change the font size as needed -->
+        <!-- Add any other styling options here -->
+    </style>
+</resources>
