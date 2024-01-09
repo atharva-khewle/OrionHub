@@ -3,12 +3,227 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#151515"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Create">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:boxBackgroundColor="#151515"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintTextColor="#FFFFFF">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:id="@+id/create_post_subreddit"
+                    android:hint="Subreddit"
+                    android:textColorHint="#FFFFFF" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:boxBackgroundColor="#151515"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintTextColor="#FFFFFF">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:id="@+id/create_post_title"
+                    android:hint="Title"
+                    android:textColorHint="#FFFFFF" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:background="#494949"
+                android:layout_height="0.1dp"
+                />
+
+
+
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/content_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:buttonTint="#FFFFFF"
+                    android:paddingHorizontal="13dp"
+                    android:text="Text"
+                    android:textColor="#FFFFFF" />
+
+                <RadioButton
+                    android:paddingHorizontal="13dp"
+
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/content_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Photo"
+                    android:textColor="#FFFFFF" />
+
+                <RadioButton
+                    android:paddingHorizontal="13dp"
+
+                    android:id="@+id/content_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="Video"
+                    android:textColor="#FFFFFF" />
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/selected_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:padding="10dp"
+                        android:layout_height="wrap_content"
+                        app:boxStrokeColor="#CC0000"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:boxBackgroundColor="#191919"
+                        app:boxBackgroundMode="filled"
+                        app:hintTextColor="#FFFFFF">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/create_post_text_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="top"
+                            android:inputType="textMultiLine"
+                            android:lines="13"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollHorizontally="false"
+                            android:textColorHint="#FFFFFF"
+                            android:textCursorDrawable="@drawable/color_cursor"
+                            android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/selected_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/select_img_btn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:drawableTint="#FFFFFF"
+                        android:foregroundTint="#FFFFFF"
+
+                        android:gravity="center"
+                        android:padding="11dp"
+                        android:textColorHighlight="#FFFFFF"
+                        app:cornerRadius="2dp"
+                        app:icon="@drawable/image_area"
+                        app:iconTint="#FFFFFF"
+                        app:rippleColor="#FFFFFF" />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/post_selected_image"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/selected_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/select_vid_btn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:drawableTint="#FFFFFF"
+                        android:foregroundTint="#FFFFFF"
+                        android:gravity="center"
+                        android:padding="11dp"
+                        android:textColorHighlight="#FFFFFF"
+                        app:cornerRadius="2dp"
+                        app:icon="@drawable/image_area"
+                        app:iconTint="#FFFFFF"
+                        app:rippleColor="#FFFFFF" />
+                    <com.google.android.exoplayer2.ui.PlayerView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:id="@+id/post_seleced_video"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/post_button"
+            android:layout_width="100dp"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:backgroundTint="#0077D6"
+            android:gravity="center"
+            android:text="Post"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#FDFDFD"
+            android:textColorLink="#FAFAFA"
+            app:cornerRadius="20dp" />
+
+    </LinearLayout>
+</ScrollView>
 
 </FrameLayout>

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.MediaItem
@@ -59,8 +60,10 @@ class AdapterforPostsOnSubreddit (private  val posts : List<PostShownModel>) : R
 
         /////other tasks
 
-        holder.subreddit.setText(currentItem.subredditName)
+//        holder.subreddit.setText(currentItem.subredditName)
+        holder.subreddit.visibility = View.GONE
         holder.title.setText(currentItem.title)
+        holder.title.setPadding(30,35,30,2)
         holder.voteno.setText(currentItem.votes.toString())
         holder.commentno.setText(currentItem.comments.toString())
 

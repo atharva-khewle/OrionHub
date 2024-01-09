@@ -1,59 +1,127 @@
 package com.example.orionhub
 
+import AdapterforCommunityRecycler
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView.OnQueryTextListener
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.orionhub.databinding.FragmentCommunitiesBinding
+import com.google.android.gms.tasks.Tasks.await
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.Locale
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Communities.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Communities : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+
+    private lateinit var binding : FragmentCommunitiesBinding
+    private lateinit var recyclerView :RecyclerView
+    private lateinit var searchView :SearchView
+    private var mylist :List<String> = listOf("")
+    private lateinit var adapter: AdapterforCommunityRecycler
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_communities, container, false)
+        val fireclass = Firebasefun();
+        fireclass.initialiseFirebase()
+        binding = FragmentCommunitiesBinding.inflate(inflater, container, false)
+        recyclerView=binding.communityRecyclerview
+        searchView=binding.communitySearchview
+
+        searchView.setOnClickListener{
+            searchView.isIconified = false
+        }
+
+
+        lifecycleScope.launch {
+            val a = fireclass.allsubredditlist()
+            if(a!=null){
+                mylist = a as List<String>
+                setupui()
+            }
+
+
+        }
+
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Communities.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Communities().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    fun setupui(){
+
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+//        adapter = AdapterforCommunityRecycler(mylist)
+        adapter = AdapterforCommunityRecycler(mylist) { subredditName ->
+            openSubredditFragment(subredditName)
+        }
+        recyclerView.adapter =adapter
+
+        // Initially hide the RecyclerView
+        // uncomment this when u have free time
+//        recyclerView.visibility = View.GONE
+
+
+
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) {
+                    // Hide RecyclerView when query is empty
+                    // uncomment this when u have free time
+//                    recyclerView.visibility = View.GONE
+                } else {
+                    // Show RecyclerView when user starts typing
+                    // uncomment this when u have free time
+//                    recyclerView.visibility = View.VISIBLE
+
+
+                }
+                // Update your RecyclerView's data here
+                filterlist(newText) // Assuming you have a method to filter the list
+                return true
+            }
+
+        })
+    }
+
+    private fun openSubredditFragment(subredditName: String) {
+        val fragment = SubredditFragment.newInstance(subredditName)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.inMainFrag_layout, fragment)
+            .commit()
+    }
+    fun filterlist(query : String?){
+        if(query!=null){
+            val filteredlist = ArrayList<String>()
+
+            for(i in mylist){
+                if(i.lowercase(Locale.ROOT).contains(query)){
+                    filteredlist.add(i)
                 }
             }
+            if(filteredlist.isEmpty()){
+                Toast.makeText(requireContext(), "Nope, not here", Toast.LENGTH_SHORT).show()
+            }else{
+//                adapter.setfilteredlist(filteredlist)
+                adapter.setFilteredList(filteredlist)
+            }
+        }
     }
+
 }

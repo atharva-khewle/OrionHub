@@ -10,5 +10,5 @@ class SubredditModel (
     val usersList: List<String> = listOf("u8"), // Empty list as default
     val createdAt: Date = Date(), // Current date as default
     val postIDList: List<String> = listOf("0"), // Empty list as default
-    val totalUsers: Int = usersList.size  // 0 as default
+    val subimage: String="0"
 )

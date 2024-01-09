@@ -78,6 +78,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:layout_height="wrap_content"
                 android:id="@+id/login_email"
                 android:hint="Email"

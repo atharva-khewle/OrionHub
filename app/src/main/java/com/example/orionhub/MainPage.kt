@@ -58,119 +58,6 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
         fireclass.initialiseFirebase()
 
 
-        //shared prefs
-        val prefs: SharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-//        prefs.edit().putString("USERNAME_KEY", username).apply()
-
-
-
-
-        if(prefs.getString("USERNAME_KEY", null)===null){
-            //if name does not exist
-            lifecycleScope.launch {
-                val combinedData = MediatorLiveData<Triple<String?, String?, Int?>>().apply {
-                    var email: String? = null
-                    var pass: String? = null
-                    var isRegister: Int? = null
-
-                    fun update() {
-                        value = Triple(email, pass, isRegister)
-                    }
-
-                    addSource(sharedViewModel.email) {
-                        email = it
-                        update()
-                    }
-                    addSource(sharedViewModel.password) {
-                        pass = it
-                        update()
-                    }
-                    addSource(sharedViewModel.isregister) {
-                        isRegister = it
-                        update()
-                    }
-                }
-
-                combinedData.observe(viewLifecycleOwner) { (email, pass, isRegister) ->
-                    if (email != null && pass != null && isRegister != null) {
-                        // All data is available
-                        if (isRegister == 1) {
-                            // Handle registration
-                            lifecycleScope.launch {
-                                try {
-                                    // Call the suspending function within a coroutine //created inised spacial courintine
-                                    val msg = withContext(Dispatchers.IO) {
-                                        fireclass.registerUser( sharedViewModel.username.value!!, pass,email)
-                                    }
-
-                                    if (msg == 1) {
-                                        prefs.edit().putString("USERNAME_KEY", sharedViewModel.username.value).apply()
-                                        prefs.edit().putString("EMAIL_KEY", sharedViewModel.email.value).apply()
-                                        prefs.edit().putString("PASSWORD_KEY", sharedViewModel.password.value).apply()
-
-                                        //initializing sendbird
-                                        val appInstance = requireActivity().getApplication() as BaseApplication
-                                        appInstance.initializethebird()
-
-                                        Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT).show()
-                                    } else {
-                                        Toast.makeText(requireContext(), "Registration failed\nClose app and Please try again", Toast.LENGTH_SHORT).show()
-                                    }
-                                } catch (e: Exception) {
-                                    Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                                }
-                            }
-                        } else {
-                            //login
-                            lifecycleScope.launch {
-                                try {
-                                    //already logged in so no need firebase
-                                    prefs.edit().putString("USERNAME_KEY", sharedViewModel.username.value).apply()
-                                    prefs.edit().putString("EMAIL_KEY", sharedViewModel.email.value).apply()
-                                    prefs.edit().putString("PASSWORD_KEY", sharedViewModel.password.value).apply()
-
-                                    //initializing sendbird
-                                    val appInstance = requireActivity().getApplication() as BaseApplication
-                                    appInstance.initializethebird()
-                                } catch (e: Exception) {
-                                    Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                                }
-                            }
-                        }
-                    }
-                }
-
-            }
-
-        }
-        else{
-
-            binding.rightNavView.getHeaderView(0).findViewById<TextView>(R.id.setthisusername).text = prefs.getString("USERNAME_KEY", null)
-            //initializing sendbird
-            val appInstance = requireActivity().getApplication() as BaseApplication
-            appInstance.initializethebird()
-            //to open subredddit page by clickng on  item
-            lifecycleScope.launch {
-                subredditsList = fireclass.mysubredditlists(requireContext())
-                //left nav open subreddit
-                left_nav_view = binding.leftNavView
-                updateNavigationMenu()
-                left_nav_view.setNavigationItemSelectedListener { menuItem->
-                    val subredditName = menuItem.title.toString()
-                    openSubredditFragment(subredditName)
-                    binding.drawerlayout1.closeDrawer(GravityCompat.START)
-                    true
-                }
-            }
-        }
-
-
-
-
-
-
-
-
         //topnavbar
         val topnavbar = view?.findViewById<Toolbar>(R.id.topnavbar)
         val topnavmenuicon= topnavbar?.navigationIcon
@@ -184,87 +71,199 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
 
 
 
+        //shared prefs
+        val prefs: SharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+//        prefs.edit().putString("USERNAME_KEY", username).apply()
 
 
-        
+        fun setupUI(){
 
 
-        binding.topnavbar.setNavigationOnClickListener {
-            binding.drawerlayout1.openDrawer(GravityCompat.START)
-        }
-        binding.topnavbar.setOnMenuItemClickListener {
-            binding.drawerlayout1.openDrawer(GravityCompat.END)
-            true
-        }
-        binding.rightNavView.setNavigationItemSelectedListener {
-            if(it.title.toString()=="Create Community"){
-                Toast.makeText(requireContext(), "create", Toast.LENGTH_SHORT).show()
-                openCreateSubredditFragment()
+            if(prefs.getString("USERNAME_KEY", null)===null){
+                //if name does not exist
+                lifecycleScope.launch {
+                    val combinedData = MediatorLiveData<Triple<String?, String?, Int?>>().apply {
+                        var email: String? = null
+                        var pass: String? = null
+                        var isRegister: Int? = null
+
+                        fun update() {
+                            value = Triple(email, pass, isRegister)
+                        }
+
+                        addSource(sharedViewModel.email) {
+                            email = it
+                            update()
+                        }
+                        addSource(sharedViewModel.password) {
+                            pass = it
+                            update()
+                        }
+                        addSource(sharedViewModel.isregister) {
+                            isRegister = it
+                            update()
+                        }
+                    }
+
+                    combinedData.observe(viewLifecycleOwner) { (email, pass, isRegister) ->
+                        if (email != null && pass != null && isRegister != null) {
+                            // All data is available
+                            if (isRegister == 1) {
+                                // Handle registration
+                                lifecycleScope.launch {
+                                    try {
+                                        // Call the suspending function within a coroutine //created inised spacial courintine
+                                        val msg = withContext(Dispatchers.IO) {
+                                            fireclass.registerUser( sharedViewModel.username.value!!, pass,email)
+                                        }
+
+                                        if (msg == 1) {
+                                            prefs.edit().putString("USERNAME_KEY", sharedViewModel.username.value).apply()
+                                            prefs.edit().putString("EMAIL_KEY", sharedViewModel.email.value).apply()
+                                            prefs.edit().putString("PASSWORD_KEY", sharedViewModel.password.value).apply()
+
+                                            delay(500)
+
+                                            //initializing sendbird
+                                            val appInstance = requireActivity().getApplication() as BaseApplication
+                                            appInstance.initializethebird()
+
+                                            Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT).show()
+                                        } else {
+                                            Toast.makeText(requireContext(), "Registration failed\nClose app and Please try again", Toast.LENGTH_SHORT).show()
+                                        }
+                                    } catch (e: Exception) {
+                                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            } else {
+                                //login
+                                lifecycleScope.launch {
+                                    try {
+                                        //already logged in so no need firebase
+                                        prefs.edit().putString("USERNAME_KEY", sharedViewModel.username.value).apply()
+                                        prefs.edit().putString("EMAIL_KEY", sharedViewModel.email.value).apply()
+                                        prefs.edit().putString("PASSWORD_KEY", sharedViewModel.password.value).apply()
+                                        delay(500)
+
+                                        //initializing sendbird
+                                        val appInstance = requireActivity().getApplication() as BaseApplication
+                                        appInstance.initializethebird()
+                                    } catch (e: Exception) {
+                                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            binding.drawerlayout1.closeDrawer(GravityCompat.END)
-            true
-        }
+            else{
 
-
-
-
-
-
-
-
-
-        if (leftnav != null) {
-            leftnav.setNavigationItemSelectedListener(this)
-        }
-        if (rightnav != null) {
-            rightnav.setNavigationItemSelectedListener(this)
-        }
-
-        val toggle = ActionBarDrawerToggle(requireActivity() , drawerlayout, R.string.open_nav,R.string.close_nav)
-
-
-        if (drawerlayout != null) {
-            drawerlayout.addDrawerListener(toggle)
-            toggle.syncState()
-        }
-
-
-
-        //onclick for bottom navgation
-        binding.bottomNavigationView2.setOnItemSelectedListener {
-            when(it.itemId){
-                R.id.navhome -> {
-                    fragmentReplace(Home())
-                    binding.topnavbar.setTitle("Home")
-                }
-                R.id.navcommunities -> {
-                    fragmentReplace(Communities())
-                    binding.topnavbar.setTitle("Communities")
-
-                }
-                R.id.navchats->{
-                    fragmentReplace(Chat())
-                    binding.topnavbar.setTitle("Chats")
-
-                }
-                R.id.navinbox->{
-                    fragmentReplace(inbox())
-                    binding.topnavbar.setTitle("Inbox")
-                }
-                R.id.navcreate->{
-                    fragmentReplace(Create())
-                    binding.topnavbar.setTitle("Create a post")
-
-                }
-
-                else->{
-
+                binding.rightNavView.getHeaderView(0).findViewById<TextView>(R.id.setthisusername).text = prefs.getString("USERNAME_KEY", null)
+                //initializing sendbird
+                val appInstance = requireActivity().getApplication() as BaseApplication
+                appInstance.initializethebird()
+                //to open subredddit page by clickng on  item
+                lifecycleScope.launch {
+                    subredditsList = fireclass.mysubredditlists(requireContext())
+                    //left nav open subreddit
+                    left_nav_view = binding.leftNavView
+                    updateNavigationMenu()
+                    left_nav_view.setNavigationItemSelectedListener { menuItem->
+                        val subredditName = menuItem.title.toString()
+                        openSubredditFragment(subredditName)
+                        binding.drawerlayout1.closeDrawer(GravityCompat.START)
+                        true
+                    }
                 }
             }
 
-            true
-        }
 
+
+            binding.topnavbar.setNavigationOnClickListener {
+                binding.drawerlayout1.openDrawer(GravityCompat.START)
+            }
+            binding.topnavbar.setOnMenuItemClickListener {
+                binding.drawerlayout1.openDrawer(GravityCompat.END)
+                true
+            }
+            binding.rightNavView.setNavigationItemSelectedListener {
+                if(it.title.toString()=="Create Community"){
+                    Toast.makeText(requireContext(), "create", Toast.LENGTH_SHORT).show()
+                    openCreateSubredditFragment()
+                }
+                binding.drawerlayout1.closeDrawer(GravityCompat.END)
+                true
+            }
+
+
+
+
+
+
+
+
+
+            if (leftnav != null) {
+                leftnav.setNavigationItemSelectedListener(this)
+            }
+            if (rightnav != null) {
+                rightnav.setNavigationItemSelectedListener(this)
+            }
+
+            val toggle = ActionBarDrawerToggle(requireActivity() , drawerlayout, R.string.open_nav,R.string.close_nav)
+
+
+            if (drawerlayout != null) {
+                drawerlayout.addDrawerListener(toggle)
+                toggle.syncState()
+            }
+
+
+
+            //onclick for bottom navgation
+            binding.bottomNavigationView2.setOnItemSelectedListener {
+                when(it.itemId){
+                    R.id.navhome -> {
+                        fragmentReplace(Home())
+                        binding.topnavbar.setTitle("Home")
+                    }
+                    R.id.navcommunities -> {
+                        fragmentReplace(Communities())
+                        binding.topnavbar.setTitle("Communities")
+
+                    }
+                    R.id.navchats->{
+                        fragmentReplace(Chat())
+                        binding.topnavbar.setTitle("Chats")
+
+                    }
+                    R.id.navinbox->{
+                        fragmentReplace(inbox())
+                        binding.topnavbar.setTitle("Inbox")
+                    }
+                    R.id.navcreate->{
+                        fragmentReplace(Create())
+                        binding.topnavbar.setTitle("Create a post")
+
+                    }
+
+                    else->{
+
+                    }
+                }
+
+                true
+            }
+
+
+        }
+        lifecycleScope.launch {
+            setupUI()
+            delay(4000)
+            setupUI()
+        }
 
         return binding.root
 //        return inflater.inflate(R.layout.fragment_main_page, container, false)
@@ -275,19 +274,22 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
         val menu = left_nav_view.menu
         menu.clear() // Clear existing items if necessary
         subredditsList?.forEachIndexed { index, name ->
-            menu.add(Menu.NONE, index, Menu.NONE, name)
+            menu.add(Menu.NONE, index, Menu.NONE,"r/"+ name)
         }
-    }
-
-    private fun openSubredditFragment(subredditName: String) {
-        val fragment = SubredditFragment.newInstance(subredditName)
-        displayFragment(fragment)
     }
 
     private fun openCreateSubredditFragment() {
         val fragment = CreateSubreddit.newInstance()
         displayFragment(fragment)
     }
+
+
+
+    private fun openSubredditFragment(subredditName: String) {
+        val fragment = SubredditFragment.newInstance(subredditName)
+        displayFragment(fragment)
+    }
+
 
 
     private fun displayFragment(fragment: Fragment) {
@@ -306,6 +308,9 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
         fragmentTransaction.replace(R.id.inMainFrag_layout, frag)
         fragmentTransaction.commit()
     }
+
+
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         TODO("Not yet implemented")
