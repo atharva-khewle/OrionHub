@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_login_to_setUsername"
             app:destination="@id/setUsername" />
+        <action
+            android:id="@+id/action_login_to_mainPage"
+            app:destination="@id/mainPage" />
     </fragment>
     <fragment
         android:id="@+id/mainPage"

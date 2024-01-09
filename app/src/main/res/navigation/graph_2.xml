@@ -116,4 +116,9 @@
             android:id="@+id/action_inbox_to_create"
             app:destination="@id/create" />
     </fragment>
+    <fragment
+        android:id="@+id/subredditFragment"
+        android:name="com.example.orionhub.SubredditFragment"
+        android:label="fragment_subreddit"
+        tools:layout="@layout/fragment_subreddit" />
 </navigation>

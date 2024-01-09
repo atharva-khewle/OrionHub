@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#151515"
-    tools:context=".SetUsername">
-
+    tools:context=".CreateSubreddit">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,54 +13,21 @@
         android:orientation="vertical"
         android:padding="7dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cs1"
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:orientation="horizontal">
-
-
-            <ImageView
-                android:id="@+id/imageView42"
-                android:layout_width="44dp"
-                android:layout_height="36dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView323"
+            android:id="@+id/textView32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="4dp"
-            android:text="Create your username"
+            android:text="Create your Subreddit"
             android:textColor="#FFFFFF"
             android:textColorHighlight="#FFFFFF"
             android:textColorHint="#FFFFFF"
             android:textColorLink="#FFFFFF"
             android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="50dp"
-            android:text="Most orionauts use an anonymous username. \n         you won't be able to change it later "
-            android:textColor="#AEAEAE"
-            android:textColorHighlight="#AEAEAE"
-            android:textColorHint="#AEAEAE"
-            android:textColorLink="#AEAEAE"
-            android:textSize="18sp" />
+            android:textStyle="bold"
+            android:layout_marginBottom="40dp"/>
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -79,11 +45,38 @@
             app:hintTextColor="#FFFFFF">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/usernametxt"
+                android:id="@+id/create_sub_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
-                android:textColorHint="#FFFFFF" />
+                android:hint="Subreddit name"
+                android:textColorHint="#FFFFFF"
+                android:textCursorDrawable="@drawable/color_cursor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundColor="#252525"
+            app:boxBackgroundMode="filled"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintTextColor="#FFFFFF">
+
+            <EditText
+                android:id="@+id/create_sub_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="true"
+                android:hint="Subreddit description"
+                android:textColorHint="#FFFFFF"
+                android:textCursorDrawable="@drawable/color_cursor" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -97,21 +90,22 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/setusernamebtn"
+                android:id="@+id/create_subreddit_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:height="55dp"
                 android:backgroundTint="#FF5700"
-                android:text="Continue"
+                android:text="Create"
                 android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
                 android:textColorHint="#FDFDFD"
                 android:textColorLink="#FAFAFA"
                 app:cornerRadius="20dp" />
+
+
         </LinearLayout>
 
 
     </LinearLayout>
-
 
 </FrameLayout>

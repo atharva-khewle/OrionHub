@@ -6,24 +6,45 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.orionhub.databinding.FragmentHomeBinding
+import com.example.orionhub.databinding.FragmentSubredditBinding
 
+class SubredditFragment : Fragment() {
 
-class Home : Fragment() {
+    // Binding object instance corresponding to the fragment_subreddit.xml layout
+    private var _binding: FragmentSubredditBinding? = null
 
-    private lateinit var binding : FragmentHomeBinding
+    // This property is only valid between onCreateView and onDestroyView.
+    private val binding get() = _binding!!
+
+    companion object {
+        fun newInstance(subredditName: String): SubredditFragment {
+            val fragment = SubredditFragment()
+            val args = Bundle()
+            args.putString("SUBREDDIT_NAME", subredditName)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding= FragmentHomeBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
-        binding.homepageRecyclerview.layoutManager = LinearLayoutManager(requireContext())
-        binding.homepageRecyclerview.setHasFixedSize(true)
+    ): View {
+        // Inflate the layout for this fragment using view binding
+        _binding = FragmentSubredditBinding.inflate(inflater, container, false)
+
+        val subredditName = arguments?.getString("SUBREDDIT_NAME")
+        binding.subredditName.text = subredditName
+
+        val recyclerview  = binding.subredditRecyclerView
+        recyclerview.layoutManager = LinearLayoutManager(requireContext())
+        recyclerview.setHasFixedSize(true)
 
         //here u give list of posts to adapter. make it dynamic
-        val list =generateDummyPosts(6)
-        binding.homepageRecyclerview.adapter = AdapterforPostsOnHome(list)
+        val list = generateDummyPosts(9)
+        recyclerview.adapter=AdapterforPostsOnSubreddit(list)
+
+
 
         return binding.root
     }
@@ -59,5 +80,8 @@ class Home : Fragment() {
         return dummyPosts
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Clear the binding when the view is destroyed
+    }
 }

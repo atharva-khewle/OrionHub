@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "302764016985",
+    "project_id": "orionhub-3967c",
+    "storage_bucket": "orionhub-3967c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302764016985:android:0c310d02a26fe5d8afb848",
+        "android_client_info": {
+          "package_name": "com.example.orionhub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrYPqelQ6wpOr3VzU5LeP9YjySc3CWtLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
