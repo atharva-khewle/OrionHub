@@ -48,7 +48,7 @@ class Login : Fragment() {
                         sharedviewmodel.saveEmail(e)
                         sharedviewmodel.savePassword(p)
                         sharedviewmodel.saveisregister(0)
-                        Toast.makeText(requireContext(),"set to login", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(requireContext(),"set to login", Toast.LENGTH_SHORT).show();
                         binding.button2.findNavController().navigate(R.id.action_login_to_mainPage)
                     }else{
                         Toast.makeText(requireContext(),"Incorrect password", Toast.LENGTH_SHORT).show();

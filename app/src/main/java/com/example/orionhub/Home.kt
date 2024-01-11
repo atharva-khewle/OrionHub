@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.orionhub.databinding.FragmentHomeBinding
+import kotlinx.coroutines.launch
 
 
 class Home : Fragment() {
@@ -17,16 +19,38 @@ class Home : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding= FragmentHomeBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
-        binding.homepageRecyclerview.layoutManager = LinearLayoutManager(requireContext())
-        binding.homepageRecyclerview.setHasFixedSize(true)
 
-        //here u give list of posts to adapter. make it dynamic
-        val list =generateDummyPosts(6)
-        binding.homepageRecyclerview.adapter = AdapterforPostsOnHome(list)
+
+
+        val fireclass = Firebasefun();
+        fireclass.initialiseFirebase()
+        // Inflate the layout for this fragment
+
+        lifecycleScope.launch {
+
+            val homepagepostslist = fireclass.getPostsInModelpostFormatForHomePage(requireContext())
+
+            binding.homepageRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+            binding.homepageRecyclerview.setHasFixedSize(true)
+
+            //here u give list of posts to adapter. make it dynamic
+//            val list =generateDummyPosts(6)
+            val adapter = AdapterforPostsOnHome(homepagepostslist){
+                openPostPage(it)
+            }
+            binding.homepageRecyclerview.adapter =adapter
+
+        }
 
         return binding.root
     }
+    private fun openPostPage(post : PostShownModel) {
+        val fragment = postpage.newInstance(post.postId)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.inMainFrag_layout, fragment)
+            .commit()
+    }
+
     fun generateDummyPosts(count: Int): List<PostShownModel> {
         val contentTypes = listOf("text", "video", "image")
         val dummyPosts = mutableListOf<PostShownModel>()

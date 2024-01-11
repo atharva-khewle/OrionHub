@@ -32,7 +32,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="50dp"
                             app:srcCompat="@drawable/cake_variant_outline" />
         <TextView
             android:layout_width="match_parent"
@@ -44,9 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:id="@+id/right_nav_user_birthday"
             android:text="100"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -73,7 +74,7 @@
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     app:srcCompat="@drawable/blur" />
 
         <TextView
@@ -86,9 +87,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:id="@+id/right_nav_user_karma"
             android:text="100"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="match_parent"

@@ -6,16 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView.OnQueryTextListener
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orionhub.databinding.FragmentCommunitiesBinding
-import com.google.android.gms.tasks.Tasks.await
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -45,7 +41,7 @@ class Communities : Fragment() {
 
 
         lifecycleScope.launch {
-            val a = fireclass.allsubredditlist()
+            val a = fireclass.getAllsubredditlist()
             if(a!=null){
                 mylist = a as List<String>
                 setupui()

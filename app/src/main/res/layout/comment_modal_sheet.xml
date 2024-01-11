@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#000000">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Replying to :"
+            android:textColor="#989898"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="5dp"
+            app:cardBackgroundColor="#222222"
+            app:cardCornerRadius="9dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@android:color/transparent">
+
+            <TextView
+                android:id="@+id/comment_replying_to"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:paddingHorizontal="15dp"
+                android:text="Post"
+                android:textColor="#989898"
+                />
+        </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/post_comment_button"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center|end"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="#0077D6"
+            android:paddingHorizontal="15dp"
+            android:textColor="#989898"
+            app:cornerRadius="4dp"
+            app:icon="@drawable/send_variant_outline"
+            app:iconTint="#C9E8FF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rippleColor="#FFFFFF"
+            app:strokeColor="#FFFFFF" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        app:boxStrokeColor="#CC0000"
+        app:boxStrokeWidthFocused="0dp"
+        app:boxBackgroundColor="#191919"
+        app:boxBackgroundMode="filled"
+        app:hintTextColor="#FFFFFF">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/comment_text_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:lines="13"
+            android:scrollbarStyle="insideInset"
+            android:scrollHorizontally="false"
+            android:textColorHint="#FFFFFF"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    
+
+</LinearLayout>

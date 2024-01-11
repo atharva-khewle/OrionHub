@@ -10,7 +10,8 @@
         android:icon="@drawable/nav_comm_ic"
         android:title="Create Community" />
     <item
-        android:icon="@android:drawable/ic_menu_save"
-        android:title="Saved posts" />
+        android:icon="@drawable/logout"
+        android:title="Logout" />
+
 
 </menu>

@@ -124,7 +124,7 @@ class Create : Fragment() {
                 if(title!=null && subname!="" && content!=null && (textbool || imgbool || vidbool)){
                     val resSub = fireclass.doesthisSubExist(subname)
                     if(resSub==1){
-                        Toast.makeText(requireContext(), "Entered", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), "Entered", Toast.LENGTH_SHORT).show()
                         uuidtxt=UUID.randomUUID().toString()
                         val postid = uuidtxt
                         if(textbool){
@@ -167,6 +167,7 @@ class Create : Fragment() {
                             )
                         }
 
+                        Toast.makeText(requireContext(), "please wait...", Toast.LENGTH_SHORT).show()
                         uploadPost(post!!)
 
 
@@ -206,6 +207,8 @@ class Create : Fragment() {
             }
         }
     }
+
+
     private fun updateVisibility(textVisibility: Int, imageVisibility: Int, videoVisibility: Int, imgBtnVisibility: Int, vidBtnVisibility: Int) {
         textbool = textVisibility == View.VISIBLE
         imgbool = imageVisibility == View.VISIBLE

@@ -115,10 +115,27 @@
         <action
             android:id="@+id/action_inbox_to_create"
             app:destination="@id/create" />
+        <action
+            android:id="@+id/action_inbox_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/subredditFragment"
         android:name="com.example.orionhub.SubredditFragment"
         android:label="fragment_subreddit"
         tools:layout="@layout/fragment_subreddit" />
+    <fragment
+        android:id="@+id/postpage"
+        android:name="com.example.orionhub.postpage"
+        android:label="fragment_postpage"
+        tools:layout="@layout/fragment_postpage" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.orionhub.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_inbox"
+            app:destination="@id/inbox" />
+    </fragment>
 </navigation>

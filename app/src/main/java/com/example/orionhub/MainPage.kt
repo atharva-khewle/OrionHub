@@ -1,6 +1,7 @@
 package com.example.orionhub
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,12 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.orionhub.databinding.FragmentMainPageBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -23,6 +24,9 @@ import androidx.lifecycle.MediatorLiveData
 import com.google.firebase.database.DatabaseReference
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
+import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -76,8 +80,8 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
 //        prefs.edit().putString("USERNAME_KEY", username).apply()
 
 
+        @RequiresApi(Build.VERSION_CODES.O)
         fun setupUI(){
-
 
             if(prefs.getString("USERNAME_KEY", null)===null){
                 //if name does not exist
@@ -179,6 +183,7 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
                 }
             }
 
+            val myusername= prefs.getString("USERNAME_KEY", null)?:"default"
 
 
             binding.topnavbar.setNavigationOnClickListener {
@@ -188,18 +193,57 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
                 binding.drawerlayout1.openDrawer(GravityCompat.END)
                 true
             }
-            binding.rightNavView.setNavigationItemSelectedListener {
-                if(it.title.toString()=="Create Community"){
-                    Toast.makeText(requireContext(), "create", Toast.LENGTH_SHORT).show()
-                    openCreateSubredditFragment()
+
+
+
+
+            lifecycleScope.launch{
+                val myusername = fireclass.getMyusername(requireContext())
+                val userprofileimgUrl = fireclass.getUserProfileUrlfromName(myusername)
+
+                if(userprofileimgUrl!=""){
+                val circleimgid = binding.rightNavView.getHeaderView(0).findViewById<CircleImageView>(R.id.circleImageView)
+                Glide.with(requireActivity()).load(userprofileimgUrl).into(circleimgid)
                 }
-                binding.drawerlayout1.closeDrawer(GravityCompat.END)
-                true
+
+
+                val userinfo = fireclass.getUserDataFromName(myusername)
+                binding.rightNavView.getHeaderView(0).findViewById<TextView>(R.id.right_nav_user_karma).text = userinfo?.child("karma")?.getValue(String::class.java)
+
+                    // Extract date components from the list
+                    var date =
+                        userinfo?.child("createdAt")?.child("date")?.getValue(Int::class.java)
+                    var month = userinfo?.child("createdAt")?.child("month")?.getValue(Int::class.java)
+                    val year = userinfo?.child("createdAt")?.child("year")?.getValue(Int::class.java)?.rem(100)
+
+
+                val monthName = when (month?.plus(1)) {
+                    1 -> "Jan"
+                    2 -> "Feb"
+                    3 -> "Mar"
+                    4 -> "Apr"
+                    5 -> "May"
+                    6 -> "Jun"
+                    7 -> "Jul"
+                    8 -> "Aug"
+                    9 -> "Sep"
+                    10 -> "Oct"
+                    11 -> "Nov"
+                    12 -> "Dec"
+                    else -> null  // Handle invalid month
+                }
+
+                    val birthdaydate :String = "$date $monthName 20$year"
+
+                binding.rightNavView.getHeaderView(0).findViewById<TextView>(R.id.right_nav_user_birthday).text = birthdaydate
+
+                val karma = fireclass.calcUsersKarma(myusername)
+
+                binding.rightNavView.getHeaderView(0).findViewById<TextView>(R.id.right_nav_user_karma).text = karma.toString()
+
+
+
             }
-
-
-
-
 
 
 
@@ -222,6 +266,37 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
 
 
 
+
+
+            binding.rightNavView.setNavigationItemSelectedListener {
+                if(it.title.toString()=="Logout"){
+//                    Toast.makeText(requireContext(), "create", Toast.LENGTH_SHORT).show()
+                    prefs.edit().remove("USERNAME_KEY").apply()
+                    binding.rightNavView.findNavController().navigate(R.id.action_mainPage_to_startPage)
+                }
+
+                if(it.title.toString()=="Create Community"){
+//                    Toast.makeText(requireContext(), "create", Toast.LENGTH_SHORT).show()
+                    openCreateSubredditFragment()
+                }
+                if(it.title.toString()=="My Profile"){
+//                    Toast.makeText(requireContext(), "create", Toast.LENGTH_SHORT).show()
+                    openProfileFragment(myusername)
+//                    fragmentReplace(ProfileFragment(myusername))
+                }
+                binding.drawerlayout1.closeDrawer(GravityCompat.END)
+                true
+            }
+
+
+
+
+
+
+
+
+
+
             //onclick for bottom navgation
             binding.bottomNavigationView2.setOnItemSelectedListener {
                 when(it.itemId){
@@ -239,9 +314,9 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
                         binding.topnavbar.setTitle("Chats")
 
                     }
-                    R.id.navinbox->{
+                    R.id.navsearchacc->{
                         fragmentReplace(inbox())
-                        binding.topnavbar.setTitle("Inbox")
+                        binding.topnavbar.setTitle("Search account")
                     }
                     R.id.navcreate->{
                         fragmentReplace(Create())
@@ -258,7 +333,8 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
             }
 
 
-        }
+
+        }//setupui
         lifecycleScope.launch {
             setupUI()
             delay(4000)
@@ -277,13 +353,23 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
             menu.add(Menu.NONE, index, Menu.NONE,"r/"+ name)
         }
     }
-
+    private fun fragmentReplace(frag: Fragment){
+        var fragmanager = parentFragmentManager
+        var transaction = fragmanager.beginTransaction()
+//        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmanager.beginTransaction()
+        fragmentTransaction.replace(R.id.inMainFrag_layout, frag)
+        fragmentTransaction.commit()
+    }
     private fun openCreateSubredditFragment() {
         val fragment = CreateSubreddit.newInstance()
         displayFragment(fragment)
     }
 
-
+    private fun openProfileFragment(username : String) {
+        val fragment = ProfileFragment.newInstance(username)
+        displayFragment(fragment)
+    }
 
     private fun openSubredditFragment(subredditName: String) {
         val fragment = SubredditFragment.newInstance(subredditName)
@@ -293,21 +379,14 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
 
 
     private fun displayFragment(fragment: Fragment) {
-      requireActivity().supportFragmentManager.beginTransaction()
+        parentFragmentManager.beginTransaction()
             .replace(R.id.inMainFrag_layout, fragment) // Replace with your FrameLayout ID
             .commit()
     }
 
 
 
-    private fun fragmentReplace(frag: Fragment){
-        var fragmanager = parentFragmentManager
-        var transaction = fragmanager.beginTransaction()
-//        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmanager.beginTransaction()
-        fragmentTransaction.replace(R.id.inMainFrag_layout, frag)
-        fragmentTransaction.commit()
-    }
+
 
 
 

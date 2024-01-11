@@ -16,23 +16,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <LinearLayout
-                    android:elevation="10dp"
+                    android:id="@+id/header_panel_for_subreddit_page"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/header_panel_for_subreddit_page"
-                    android:orientation="vertical">
+                    android:elevation="10dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/circleImageView"
+                            android:id="@+id/sub_profile_url"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_marginVertical="14dp"
@@ -52,9 +56,9 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/subreddit_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/subreddit_name"
                                 android:layout_marginTop="6dp"
                                 android:gravity=""
                                 android:paddingLeft="10dp"
@@ -65,24 +69,24 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:paddingTop="8dp"
-                                android:orientation="horizontal"
+                                android:layout_height="40dp"
                                 android:gravity="top"
+                                android:orientation="horizontal"
                                 android:paddingLeft="10dp"
-                                android:layout_height="40dp">
+                                android:paddingTop="8dp">
 
                                 <TextView
                                     android:id="@+id/sub_members"
-                                    android:text="69"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:text="69"
                                     android:textSize="11sp" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="11sp"
                                     android:text=" members"
-                                    />
+                                    android:textSize="11sp" />
                             </LinearLayout>
 
 
@@ -107,9 +111,9 @@
                         android:id="@+id/subreddit_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
                         android:paddingHorizontal="25dp"
                         android:text="desc"
-                        android:layout_marginBottom="15dp"
                         android:textColor="#BDBDBD" />
 
                     <LinearLayout
@@ -124,10 +128,14 @@
                     android:id="@+id/subreddit_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="6dp"/>
+                    android:minHeight="6dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/header_panel_for_subreddit_page" />
 
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
 

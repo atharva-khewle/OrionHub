@@ -19,8 +19,8 @@
         android:icon="@drawable/nav_chat_ic"
         android:title="Chats" />
     <item
-        android:id="@+id/navinbox"
-        android:icon="@drawable/nav_bell_ic"
-        android:title="Inbox" />
+        android:id="@+id/navsearchacc"
+        android:icon="@drawable/account_select"
+        android:title="search account" />
 
 </menu>

@@ -6,14 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ui.PlayerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class AdapterforPostsOnHome (private  val posts : List<PostShownModel>) : RecyclerView.Adapter<AdapterforPostsOnHome.MyPostsHolder>(){
+class AdapterforPostsOnHome (
+    private  val posts : List<PostShownModel>,
+    private  val onPostClicked : (PostShownModel) -> Unit
+    ) : RecyclerView.Adapter<AdapterforPostsOnHome.MyPostsHolder>(){
 
 
 
@@ -27,39 +35,28 @@ class AdapterforPostsOnHome (private  val posts : List<PostShownModel>) : Recycl
 
     override fun onBindViewHolder(holder: AdapterforPostsOnHome.MyPostsHolder, position: Int) {
         val currentItem = posts[position]
+        val postId = currentItem.postId
+
+        val fireclass = Firebasefun();
+        fireclass.initialiseFirebase()
+
+
+        holder.post.setOnClickListener{
+            onPostClicked(posts[position])
+        }
 
         ///////button selection
-        var selectedButtonId = -1 // Track selected button
-        holder.downvotebtn.setOnClickListener {
-            if (it.isSelected) {
-                // Deselect if already selected
-                it.isSelected = false
-                selectedButtonId = -1
-            } else {
-                holder.upvotebtn.isSelected = false
-                it.isSelected = true
-                selectedButtonId = R.id.downvote_btn // Assuming ID of downvote button
-            }
-        }
 
-        holder.upvotebtn.setOnClickListener {
-            if (it.isSelected) {
-                // Deselect if already selected
-                it.isSelected = false
-                selectedButtonId = -1
-            } else {
-                holder.downvotebtn.isSelected = false
-                it.isSelected = true
-                selectedButtonId = R.id.upvote_btn // Assuming ID of upvote button
-            }
-        }
+        var selectedButtonId = -1 // Track selected button
+        var currentVoteCount: Int = currentItem.votes /* Initialize with the current vote count from your data source */
+
 
 
 
 
         /////other tasks
 
-        holder.subreddit.setText(currentItem.subredditName)
+        holder.subreddit.setText("r/"+currentItem.subredditName)
         holder.title.setText(currentItem.title)
         holder.voteno.setText(currentItem.votes.toString())
         holder.commentno.setText(currentItem.comments.toString())
@@ -124,7 +121,7 @@ class AdapterforPostsOnHome (private  val posts : List<PostShownModel>) : Recycl
                 holder.imgcontent.visibility = View.GONE
 
                 // Optional: Start playing automatically
-                player.playWhenReady = true
+                player.playWhenReady = false
 
                 // Clean up: Release the player in the ViewHolder to prevent memory leaks
 //                holder.itemView.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
@@ -141,6 +138,69 @@ class AdapterforPostsOnHome (private  val posts : List<PostShownModel>) : Recycl
             }
 
         }
+
+
+        holder.upvotebtn.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                if (it.isSelected) {
+                    it.isSelected = false
+                    selectedButtonId = -1
+                    val result = fireclass.updateVotetoPostbyPostID(postId, -1)
+                    if (result == 1) {
+                        withContext(Dispatchers.Main) {
+                            currentVoteCount -= 1
+                            holder.voteno.text = currentVoteCount.toString()
+                        }
+                    }
+                } else {
+                    if (holder.downvotebtn.isSelected) {
+                        holder.downvotebtn.isSelected = false
+                        fireclass.updateVotetoPostbyPostID(postId, 1) // Cancel downvote
+                    }
+                    it.isSelected = true
+                    selectedButtonId = R.id.upvote_btn
+                    val result = fireclass.updateVotetoPostbyPostID(postId, 1)
+                    if (result == 1) {
+                        withContext(Dispatchers.Main) {
+                            currentVoteCount += 1
+                            holder.voteno.text = currentVoteCount.toString()
+                        }
+                    }
+                }
+            }
+        }
+
+        holder.downvotebtn.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                if (it.isSelected) {
+                    it.isSelected = false
+                    selectedButtonId = -1
+                    val result = fireclass.updateVotetoPostbyPostID(postId, 1)
+                    if (result == 1) {
+                        withContext(Dispatchers.Main) {
+                            currentVoteCount += 1
+                            holder.voteno.text = currentVoteCount.toString()
+                        }
+                    }
+                } else {
+                    if (holder.upvotebtn.isSelected) {
+                        holder.upvotebtn.isSelected = false
+                        fireclass.updateVotetoPostbyPostID(postId, -1) // Cancel upvote
+                    }
+                    it.isSelected = true
+                    selectedButtonId = R.id.downvote_btn
+                    val result = fireclass.updateVotetoPostbyPostID(postId, -1)
+                    if (result == 1) {
+                        withContext(Dispatchers.Main) {
+                            currentVoteCount -= 1
+                            holder.voteno.text = currentVoteCount.toString()
+                        }
+                    }
+                }
+            }
+        }
+
+
     }
 
     override fun getItemCount(): Int {
@@ -150,6 +210,7 @@ class AdapterforPostsOnHome (private  val posts : List<PostShownModel>) : Recycl
 
 
     class MyPostsHolder(itemView : View): RecyclerView.ViewHolder(itemView){
+        val post: LinearLayout = itemView.findViewById(R.id.post_id)
         val textcontent : TextView = itemView.findViewById(R.id.post_text_content)
         val imgcontent : ImageView = itemView.findViewById(R.id.post_img_content)
 //        val vidcontent : VideoView = itemView.findViewById(R.id.post_video_content)

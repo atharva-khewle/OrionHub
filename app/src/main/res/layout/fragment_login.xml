@@ -16,12 +16,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cs1"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
 
 
             <ImageView
+                android:layout_marginTop="7dp"
                 android:id="@+id/imageView42"
                 android:layout_width="44dp"
                 android:layout_height="36dp"
@@ -29,7 +30,9 @@
                 app:layout_constraintEnd_toEndOf="@+id/toregister"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                app:srcCompat="@drawable/hd_logo"
+                tools:src="@drawable/hd_logo"
+                tools:srcCompat="@drawable/hd_logo"                  />
 
             <TextView
                 android:id="@+id/toregister"
@@ -104,6 +107,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:id="@+id/login_pass"
                 android:hint="Password" />
         </com.google.android.material.textfield.TextInputLayout>

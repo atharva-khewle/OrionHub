@@ -17,20 +17,24 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
 
 
             <ImageView
                 android:id="@+id/imageView4"
+                android:layout_marginTop="7dp"
                 android:layout_width="44dp"
                 android:layout_height="36dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tologin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                app:srcCompat="@drawable/hd_logo"
+                tools:src="@drawable/hd_logo"
+                tools:srcCompat="@drawable/hd_logo"
+                />
 
             <TextView
                 android:id="@+id/tologin"
@@ -94,6 +98,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_email_textbox"
                 android:layout_width="match_parent"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:layout_height="wrap_content"
                 android:hint="Email"
                 android:textColorHint="#FFFFFF" />
@@ -119,6 +124,7 @@
                     android:id="@+id/register_pass_textbox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textCursorDrawable="@drawable/color_cursor"
 
                     android:hint="Password" />
             </com.google.android.material.textfield.TextInputLayout>

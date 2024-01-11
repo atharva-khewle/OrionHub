@@ -8,7 +8,7 @@
     tools:context=".StartPage">
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
@@ -16,10 +16,16 @@
 
 
         <LinearLayout
+            android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
             android:layout_height="520dp"
+            android:layout_gravity="top"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <LinearLayout
@@ -30,10 +36,13 @@
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="40dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="30dp"
+                    app:srcCompat="@drawable/hd_logo"
+                    tools:src="@drawable/hd_logo"
+                    tools:srcCompat="@drawable/hd_logo"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -64,75 +73,90 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="1.0">
 
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/materialButton3"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:height="58dp"
-                android:text="Continue with Google"
-                android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorLink="#FFFFFF"
-                android:textSize="16sp"
-                app:backgroundTint="#333333"
-                app:cornerRadius="24dp"
-                app:icon="?android:attr/textSelectHandle" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
 
-            <com.google.android.material.button.MaterialButton
+                <!--            <com.google.android.material.button.MaterialButton-->
+                <!--                android:id="@+id/materialButton3"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="match_parent"-->
+                <!--                android:height="58dp"-->
+                <!--                android:text="Continue with Google"-->
+                <!--                android:textColor="#FFFFFF"-->
+                <!--                android:textColorHighlight="#FFFFFF"-->
+                <!--                android:textColorLink="#FFFFFF"-->
+                <!--                android:textSize="16sp"-->
+                <!--                app:backgroundTint="#333333"-->
+                <!--                app:cornerRadius="24dp"-->
+                <!--                app:icon="?android:attr/textSelectHandle" />-->
 
 
+                <com.google.android.material.button.MaterialButton
+
+
+                    android:id="@+id/registerredirect"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="4dp"
+                    android:height="58dp"
+                    android:text="Continue with email"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#FFFFFF"
+                    android:textColorLink="#FFFFFF"
+                    android:textSize="16sp"
+                    app:backgroundTint="#333333"
+                    app:cornerRadius="24dp"
+                    app:icon="@android:drawable/sym_action_email"
+                    app:iconPadding="0dp"
+                    app:iconSize="30dp"
+                    app:iconTint="#FFFFFF" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
-                android:id="@+id/registerredirect"
-                android:height="58dp"
-                android:text="Continue with email"
-                android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorLink="#FFFFFF"
-                android:textSize="16sp"
-                app:backgroundTint="#333333"
-                app:cornerRadius="24dp"
-                app:icon="@android:drawable/sym_action_email"
-                app:iconPadding="0dp"
-                app:iconSize="30dp"
-                app:iconTint="#FFFFFF" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Already a redditor?  " />
 
+                <TextView
+                    android:id="@+id/loginredirect"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="Login"
+                    android:textColor="#FF5700" />
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:backgroundTint="@color/white"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Already a redditor?  " />
-
-            <TextView
-                android:id="@+id/loginredirect"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:textColor="#FF5700" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>

@@ -51,7 +51,7 @@ class Register : Fragment() {
                 sharedviewmodel.savePassword(pass)
 
                 sharedviewmodel.saveisregister(1)
-                Toast.makeText(requireContext(),"registered set true", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(requireContext(),"registered set true", Toast.LENGTH_SHORT).show();
 
                 binding.button.findNavController().navigate(R.id.action_register_to_setUsername)
             }else{

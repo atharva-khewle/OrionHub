@@ -17,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cs1"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
 
@@ -29,7 +29,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                app:srcCompat="@drawable/hd_logo"
+                tools:src="@drawable/hd_logo"
+                tools:srcCompat="@drawable/hd_logo"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

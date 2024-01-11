@@ -17,19 +17,22 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cs1"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
 
             <ImageView
                 android:id="@+id/imageView42"
+                android:layout_marginTop="7dp"
                 android:layout_width="44dp"
                 android:layout_height="36dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                app:srcCompat="@drawable/hd_logo"
+                tools:src="@drawable/hd_logo"
+                tools:srcCompat="@drawable/hd_logo"                  />
 
 
 
@@ -55,8 +58,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="Most orionauts use an anonymous username."
+            android:textColor="#AEAEAE"
+            android:textColorHighlight="#AEAEAE"
+            android:textColorHint="#AEAEAE"
+            android:textColorLink="#AEAEAE"
+            android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="50dp"
-            android:text="Most orionauts use an anonymous username. \n         you won't be able to change it later "
+            android:gravity="center_horizontal"
+            android:text="you won't be able to change it later"
             android:textColor="#AEAEAE"
             android:textColorHighlight="#AEAEAE"
             android:textColorHint="#AEAEAE"
@@ -82,6 +97,7 @@
                 android:id="@+id/usernametxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:hint="Username"
                 android:textColorHint="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>

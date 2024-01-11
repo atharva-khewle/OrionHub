@@ -37,8 +37,11 @@ class CreateSubreddit : Fragment() {
             lifecycleScope.launch {
                 var subname = binding.createSubTitle.text.toString()
                 val desc = binding.createSubDesc.text.toString()
-                if (subname != "") {
+                val allsbs = fireclass.getAllsubredditlist()
+                val res :Boolean= allsbs.contains(subname)
+                if (subname != "" && res==false) {
                     val a = fireclass.createsubreddit(subname, desc, requireActivity())
+                    val b= fireclass.addUserToSub(requireContext(),subname)
                     if(a==1){
                         binding.createSubDesc.setText("")
                         binding.createSubTitle.setText("")
