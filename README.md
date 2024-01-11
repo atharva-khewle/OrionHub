@@ -1,6 +1,6 @@
 # OrionHub: Revolutionizing Social Connectivity
 
-Welcome to the GitHub repository of OrionHub, an avant-garde social platform inspired by the dynamics of Reddit. This project showcases innovative development using Kotlin and Firebase, emphasizing a cutting-edge, interactive user experience. Designed and developed by [Your Name], OrionHub stands as a testament to professional skill in crafting applications that are both technically robust and user-centric.
+Welcome to the GitHub repository of OrionHub, an avant-garde social platform inspired by the dynamics of Reddit. This project showcases innovative development using Kotlin and Firebase, emphasizing a cutting-edge, interactive user experience. Designed and developed by me, OrionHub stands as a testament to professional skill in crafting applications that are both technically robust and user-centric.
 
 ## Table of Contents
 - [Introduction](#introduction)
