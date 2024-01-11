@@ -7,8 +7,6 @@ Welcome to the GitHub repository of OrionHub, an avant-garde social platform ins
 - [Core Features](#core-features)
 - [Technical Stack](#technical-stack)
 - [Development Status](#development-status)
-- [Contribute](#contribute)
-- [License](#license)
 - [Contact](#contact)
 
 ## Introduction
@@ -52,17 +50,7 @@ OrionHub is not just a social platform; it's a hub of engaging discussions, dive
 ## Development Status
 OrionHub is a dynamic project, evolving with continuous development and enhancements. The platform's current state reflects a commitment to delivering a seamless and engaging user experience, with regular updates to improve functionality and incorporate user feedback.
 
-## Contribute
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## License
-Distributed under the [Your Choice of License]. See LICENSE for more information.
-
 ## Contact
-[Your Name] - atharvamainwork@gmail.com
+- LinkedIn: [Atharva Khewle](https://www.linkedin.com/in/atharvakhewle/)  {i am mostly active here}
+- Twitter: [@atharvamainwork](https://twitter.com/atharvamainwork)
+
