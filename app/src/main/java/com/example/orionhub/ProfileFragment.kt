@@ -232,8 +232,8 @@ class ProfileFragment : Fragment() {
             .replace(R.id.inMainFrag_layout, fragment)
             .commit()
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        _binding = null
+//    }
 }

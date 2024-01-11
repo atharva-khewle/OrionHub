@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -81,6 +82,7 @@ class SubredditFragment : Fragment() {
 
             if(subimgUrl!=""){
                 Glide.with(requireActivity()).load(subimgUrl).into(binding.subProfileUrl)
+            }else{
             }
             if(amImod){
                 binding.subProfileUrl.setOnClickListener {
@@ -169,6 +171,23 @@ class SubredditFragment : Fragment() {
 
 
 
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (isSubredditFragmentVisible()) {
+                    parentFragmentManager.popBackStack()
+                } else {
+                    isEnabled = false
+                    requireActivity().onBackPressed()
+                }
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+
+
+
+
 
 
 
@@ -198,14 +217,19 @@ class SubredditFragment : Fragment() {
             }
         }
     }
+    fun isSubredditFragmentVisible(): Boolean {
+        val fragment =requireActivity().supportFragmentManager.findFragmentByTag("SubredditFragment")
+        return fragment != null && fragment.isVisible
+    }
     private fun openPostPage(post : PostShownModel) {
         val fragment = postpage.newInstance(post.postId)
         parentFragmentManager.beginTransaction()
             .replace(R.id.inMainFrag_layout, fragment)
             .commit()
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null // Clear the binding when the view is destroyed
-    }
+
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        _binding = null // Clear the binding when the view is destroyed
+//    }
 }

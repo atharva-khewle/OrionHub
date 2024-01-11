@@ -3,6 +3,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -55,6 +56,8 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
         fragmentReplace(Home())
         bottomnav=binding.bottomNavigationView2;
         bottomnav.labelVisibilityMode =BottomNavigationView.LABEL_VISIBILITY_LABELED
+
+
 
 
 
@@ -299,9 +302,13 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
 
             //onclick for bottom navgation
             binding.bottomNavigationView2.setOnItemSelectedListener {
+                val backStackEntryCount = parentFragmentManager.backStackEntryCount
+                Log.d("BackStack", "Current Back Stack Count: $backStackEntryCount")
+
                 when(it.itemId){
                     R.id.navhome -> {
                         fragmentReplace(Home())
+//                        binding.bottomNavigationView2.findNavController().navigate(R.id.actionho)
                         binding.topnavbar.setTitle("Home")
                     }
                     R.id.navcommunities -> {
@@ -337,13 +344,27 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
         }//setupui
         lifecycleScope.launch {
             setupUI()
-            delay(4000)
+            delay(500)
             setupUI()
         }
 
         return binding.root
 //        return inflater.inflate(R.layout.fragment_main_page, container, false)
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private fun updateNavigationMenu() {
@@ -356,8 +377,8 @@ class MainPage : Fragment() , NavigationView.OnNavigationItemSelectedListener {
     private fun fragmentReplace(frag: Fragment){
         var fragmanager = parentFragmentManager
         var transaction = fragmanager.beginTransaction()
-//        val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmanager.beginTransaction()
+        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.replace(R.id.inMainFrag_layout, frag)
         fragmentTransaction.commit()
     }

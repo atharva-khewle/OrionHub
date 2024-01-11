@@ -24,6 +24,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
@@ -116,20 +117,9 @@ class postpage : Fragment() {
                 }
             }
 
-            recyclerView = binding.recyclerviewComments
-            commentslist=fireclass.getCommentModelfromPostID(postId!!,requireContext())
-            binding.fullpostCommentNo.setText(commentslist.size.toString())
-            recyclerView.setHasFixedSize(true)
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            adapter = AdapterForComments(commentslist,requireContext()){
-                 lifecycleScope.launch {
-                     openBottomModelSheet(it,"0")
-            }
 
-            }
-            recyclerView.adapter = adapter
-
-
+//////////////////////////////////////
+            recyclefn()
 
 
             binding.commentOnPost.setOnClickListener{
@@ -291,6 +281,7 @@ class postpage : Fragment() {
 
                     if(a==1 && b==1 && c==1){
                         Toast.makeText(requireContext(), "Commented!!!", Toast.LENGTH_SHORT).show()
+                        recyclefn()
                         dialog.dismiss()
                     }else{
                         Toast.makeText(requireContext(), "Please try again", Toast.LENGTH_SHORT).show()
@@ -313,6 +304,26 @@ class postpage : Fragment() {
 
         dialog.setContentView(view)
         dialog.show()
+    }
+
+    suspend fun recyclefn(){
+        val fireclass = Firebasefun();
+        fireclass.initialiseFirebase()
+
+        recyclerView = binding.recyclerviewComments
+        commentslist=fireclass.getCommentModelfromPostID(postId!!,requireContext())
+        binding.fullpostCommentNo.setText(commentslist.size.toString())
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        adapter = AdapterForComments(commentslist,requireContext()){
+            lifecycleScope.launch {
+                openBottomModelSheet(it,"0")
+            }
+
+        }
+        recyclerView.adapter = adapter
+
+
     }
 
     companion object {

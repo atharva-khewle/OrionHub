@@ -51,6 +51,14 @@ class Communities : Fragment() {
         }
 
 
+
+
+
+
+
+
+
+
         return binding.root
     }
 
@@ -98,10 +106,21 @@ class Communities : Fragment() {
 
     private fun openSubredditFragment(subredditName: String) {
         val fragment = SubredditFragment.newInstance(subredditName)
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.inMainFrag_layout, fragment)
-            .commit()
+        var fragmanager = parentFragmentManager
+        var transaction = fragmanager.beginTransaction()
+        val fragmentTransaction = fragmanager.beginTransaction()
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.replace(R.id.inMainFrag_layout, fragment)
+        fragmentTransaction.commit()
+
+
+//        parentFragmentManager.beginTransaction()
+//            .replace(R.id.inMainFrag_layout, fragment, "SubredditFragment") // Tagging the fragment
+//            .addToBackStack(null)
+//            .commit()
+
     }
+
     fun filterlist(query : String?){
         if(query!=null){
             val filteredlist = ArrayList<String>()
