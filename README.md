@@ -1,4 +1,4 @@
-# OrionHub: My Inaugural Kotlin Project
+# OrionHub: First Kotlin Project
 
 ## Table of Contents
 - [Demo](#Demo)
